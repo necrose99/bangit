@@ -4,7 +4,7 @@ import argparse
 import stat
 from datetime import datetime
 
-# The Map
+# The Map (The Most Interesting Shebangs in the World)
 SHEBANGS = {
     '.py':  '#!/usr/bin/env python3',
     '.sh':  '#!/bin/bash',
@@ -28,20 +28,24 @@ def process_file(filepath, user_desc="", dry_run=False):
     if ext not in SHEBANGS: return 
 
     if dry_run:
-        print(f"[-] Would Bang: {filepath}")
+        print(f"[-] [DRY RUN] Would Bang: {filepath}")
         return
 
     try:
-        # Unlock / Permissions
+        # Unlock / Permissions (The "Any" Key Fix)
         os.chmod(filepath, stat.S_IWRITE) 
         
         with open(filepath, 'r', encoding='utf-8', errors='ignore') as f:
             lines = f.readlines()
 
-        # Scrubbing old headers
+        # Scrubbing old headers (Out with the old, in with the Brew)
         clean_body = [line for line in lines if not (line.startswith('#!') or line.startswith(f"# {filename}") or line.startswith('#####'))]
 
-        header = [f"{SHEBANGS[ext]}\n", f"# {filename}\n", f"##### {user_desc if user_desc else 'ADD DESCRIPTION'}\n\n"]
+        header = [
+            f"{SHEBANGS[ext]}\n", 
+            f"# {filename}\n", 
+            f"##### {user_desc if user_desc else 'Mmm... Donut'}\n\n"
+        ]
 
         with open(filepath, 'w', encoding='utf-8') as f:
             f.writelines(header + clean_body)
@@ -53,25 +57,27 @@ def process_file(filepath, user_desc="", dry_run=False):
             os.remove(f"{filepath}:Zone.Identifier")
 
         write_log(f"FIXED: {filepath}")
-        print(f"✔ {filename}")
+        # The 3 AM Reward
+        print(f"🍩 ☕️ Fixed: {filename}")
 
     except Exception as e:
         write_log(f"FAIL: {filepath} ({e})")
+        print(f"🧨 D'oh! Failed: {filename}")
 
 def main():
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(description="[sh']BANGit: Stay thirsty, my friends.")
     parser.add_argument("path", nargs="?", help="Target file/dir")
     parser.add_argument("-d", "--desc", default="")
     parser.add_argument("-r", "--recursive", action="store_true")
     parser.add_argument("--dry", action="store_true")
-    parser.add_argument("--cleanup", action="store_true", help="Nuke the log file")
+    parser.add_argument("--cleanup", action="store_true")
 
     args = parser.parse_args()
 
     if args.cleanup:
         if os.path.exists(LOG_FILE):
             os.remove(LOG_FILE)
-            print("🧹 Log file nuked.")
+            print("🧹 Log file nuked. Evidence gone!")
         return
 
     if not args.path:
@@ -84,7 +90,11 @@ def main():
         process_file(args.path, args.desc, args.dry)
     else:
         for root, _, files in (os.walk(args.path) if args.recursive else [(args.path, [], os.listdir(args.path))]):
-            for f in files: process_file(os.path.join(root, f), args.desc, args.dry)
+            for f in files: 
+                process_file(os.path.join(root, f), args.desc, args.dry)
+    
+    if not args.dry:
+        print("\n🎉 Mountain Leveled. Go to sleep!")
 
 if __name__ == "__main__":
     main()
