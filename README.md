@@ -1,11 +1,18 @@
 ​🛠️ [sh']BANGit!
+
 ​"The Most Interesting Script Janitor in the World."
+
 ​I don't always write scripts, but when I do, I forget the shebang.
+
 Stay thirsty for automation, my friends.
+
 ​bangit is a lightweight, "Lindows-friendly" utility for when you have a mountain of scripts and the attention span of Homer Simpson near a donut box. It fixes shebangs, adds file metadata, unlocks Windows "web-blocked" files, and makes things executable on Linux.
+
+
 ​🍩 Why use this?
 ​D'oh! Protection: Automatically adds #!/usr/bin/env python3 or #!/bin/bash so you don't have to.
 ​Lindows Ready: Fixes the :Zone.Identifier junk that Windows attaches to "scary" internet files.
+
 ​3 AM Approved: It has a --dry-run mode for when you’re too tired to trust your own fingers.
 ​🚀 Installation (The "Easy Button")
 ​From the root folder (where bangit.py lives):
