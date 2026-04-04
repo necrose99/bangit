@@ -1,0 +1,8 @@
+[project]
+name = "bangit"
+version = "0.1.0"
+description = "The ultimate shebang surgeon and file unlocker"
+dependencies = []
+
+[project.scripts]
+bangit = "bangit:main"
